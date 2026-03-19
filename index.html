@@ -274,43 +274,51 @@
             });
         }
 
-        function renderOfferCard(offer) {
-            let sticker = (offer.payout > 0.5) ? '<div class="hot-sticker">🔥 HOT</div>' : '';
-            // THE CRITICAL FIX: The ID is generated here so it is unique to this card
-            const perOfferTrackingId = `user_${offer.id}_${Math.floor(Math.random() * 1000000)}`;
-            
-            let cleanLink = offer.link.split('&aff_sub5=')[0];
-            let link = cleanLink + (cleanLink.includes('?') ? '&' : '?') + `aff_sub5=${perOfferTrackingId}`;
-            
-            let html = `
-                <div class="offer-card" id="card-${offer.id}" onclick="openOffer('${link}', '${perOfferTrackingId}', ${offer.id}, this); playSfx('click')">
-                    ${sticker}
-                    <h4 class="font-bold text-gray-800 text-sm pr-6">${offer.name}</h4>
-                    <p class="text-xs text-gray-500 mt-1 leading-tight">Complete this task to verify.</p>
-                    <div class="offer-btn mt-2 bg-[#e91e63] text-white text-[10px] font-bold text-center py-2 rounded uppercase">START TASK</div>
-                </div>
-            `;
-            $("#offers-list").append(html);
-        }
+ 
+function renderOfferCard(offer) {
+    let sticker = (offer.payout > 0.5) ? '<div class="hot-sticker">🔥 HOT</div>' : '';
+    
+    // FIX: Generate the ID HERE where offer.id is guaranteed to exist
+    const perOfferTrackingId = `user_${offer.id}_${Math.floor(Math.random() * 1000000)}`;
+    
+    // Clean and append the unique sub-id
+    let cleanLink = offer.link.split('&aff_sub5=')[0];
+    let finalLink = cleanLink + (cleanLink.includes('?') ? '&' : '?') + `aff_sub5=${perOfferTrackingId}`;
+    
+    let html = `
+        <div class="offer-card" id="card-${offer.id}" onclick="openOffer('${finalLink}', '${perOfferTrackingId}', ${offer.id}, this); playSfx('click')">
+            ${sticker}
+            <h4 class="font-bold text-gray-800 text-sm pr-6">${offer.name}</h4>
+            <p class="text-xs text-gray-500 mt-1 leading-tight">Complete this task to verify.</p>
+            <div class="offer-btn mt-2 bg-[#e91e63] text-white text-[10px] font-bold text-center py-2 rounded uppercase">START TASK</div>
+        </div>
+    `;
+    $("#offers-list").append(html);
+}
 
-        function openOffer(url, trackId, offerId, el) {
-            $(el).find('.offer-btn').text('Checking...').css('background', '#9ca3af');
-            window.open(url, '_blank');
+function openOffer(url, trackId, offerId, el) {
+    // Change button state to prevent multiple clicks
+    $(el).find('.offer-btn').text('Checking...').css('background', '#9ca3af');
+    $(el).css('pointer-events', 'none');
+    
+    window.open(url, '_blank');
 
-            // The interval is now strictly tied to the unique trackId for THIS card
-            const checkInterval = setInterval(() => {
-                fetch(`${SERVER_URL}?tracking_id=${trackId}`)
-                .then(r => r.json())
-                .then(data => {
-                    if (data.status === 'completed') {
-                        clearInterval(checkInterval);
-                        completedOfferIds.push(offerId); // Permanently blacklist this offer
-                        handleOfferCompletion(el);
-                    }
-                })
-                .catch(err => console.log("Waiting..."));
-            }, 5000);
-        }
+    // Polling logic: Only listens for THIS specific trackId
+    const checkInterval = setInterval(() => {
+        fetch(`/api/check?tracking_id=${trackId}`)
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === 'completed') {
+                clearInterval(checkInterval);
+                completedOfferIds.push(offerId); // Blacklist this offer ID
+                handleOfferCompletion(el);
+            }
+        })
+        .catch(err => console.log("Checking..."));
+    }, 5000);
+                               }
+    
+        
 
         function handleOfferCompletion(el) {
             playSfx('btn');
