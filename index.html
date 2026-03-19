@@ -20,7 +20,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            /* --- NEW MOBILE SECURITY --- */
+            -webkit-touch-callout: none; /* Disables the long-press popup on iOS */
+            -webkit-user-select: none;   /* Safari */
+            -moz-user-select: none;      /* Firefox */
+            user-select: none;           /* Standard: Disables text highlighting */
         }
+
 
         /* --- DEVICE FRAME / OUTLINE --- */
         .app-container {
@@ -65,7 +72,12 @@
             transform: scale(1);
             z-index: 10;
         }
-
+        
+        /* Prevent images from being dragged or saved */
+        img {
+            -webkit-user-drag: none;
+        }
+        
         /* 3D Button Effects */
         .btn-3d {
             transition: transform 0.1s, border-bottom-width 0.1s;
@@ -583,6 +595,20 @@
             document.getElementById('progress-text').innerText = percent + '%';
         }
     </script>
+            <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.onkeydown = function (e) {
+            if (
+                e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I or Ctrl+Shift+J
+                (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+            ) {
+                return false;
+            }
+        };
+            </script>
+        
 </body>
     </html>
     
