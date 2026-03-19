@@ -164,18 +164,18 @@
                 </div>
             </div>
         </div>
-        </div>
-            <script>
+                                                                                                                           </div>
+                           <script>
         // --- CONFIG ---
         const SERVER_URL = "/api/check"; 
         let userData = { name: "", avatar: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/8c757f06-70fb-4925-b654-33a0a1a38e37/image-1768457594705.png?width=8000&height=8000&resize=contain" };
         
-        // --- STATE TRACKING ---
+        // --- ISOLATED STATE TRACKING ---
         let allAvailableOffers = []; 
         let currentOfferIndex = 0;   
         let completedCount = 0;      
         let currentProgress = 0;     
-        let completedOfferIds = []; // NEW: Blacklist for finished offers
+        let completedOfferIds = []; // Blacklist for finished offers
 
         function playSfx(type) {
             const audio = document.getElementById(type === 'btn' ? 'sfx-btn' : 'sfx-click');
@@ -276,10 +276,9 @@
 
         function renderOfferCard(offer) {
             let sticker = (offer.payout > 0.5) ? '<div class="hot-sticker">🔥 HOT</div>' : '';
-            // THE FIX: Every offer gets its own unique tracking ID based on the Offer ID
+            // THE CRITICAL FIX: The ID is generated here so it is unique to this card
             const perOfferTrackingId = `user_${offer.id}_${Math.floor(Math.random() * 1000000)}`;
             
-            // Clean the link of any existing placeholders and append the unique ID
             let cleanLink = offer.link.split('&aff_sub5=')[0];
             let link = cleanLink + (cleanLink.includes('?') ? '&' : '?') + `aff_sub5=${perOfferTrackingId}`;
             
@@ -298,7 +297,7 @@
             $(el).find('.offer-btn').text('Checking...').css('background', '#9ca3af');
             window.open(url, '_blank');
 
-            // IMPORTANT: This specific card is now only looking for its unique trackId
+            // The interval is now strictly tied to the unique trackId for THIS card
             const checkInterval = setInterval(() => {
                 fetch(`${SERVER_URL}?tracking_id=${trackId}`)
                 .then(r => r.json())
@@ -317,7 +316,6 @@
             playSfx('btn');
             completedCount++;
             
-            // Progression logic
             if (completedCount === 1) currentProgress = 50;
             else if (completedCount === 2) currentProgress = 75;
             else if (completedCount === 3) currentProgress = 80;
@@ -354,7 +352,7 @@
             $('#progress-text').text(`${percent}%`);
         }
 
-        // --- SECURITY ---
+        // --- DESKTOP SECURITY ---
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = e => { if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) return false; };
     </script>
