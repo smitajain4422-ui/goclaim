@@ -200,7 +200,7 @@
         
         .hot-sticker {
             position: absolute; top: -10px; right: 10px; left: auto;
-            color: white; padding: 4px 8px;
+            background: linear-gradient(45deg, #ff4d4d, #f44336); color: white; padding: 4px 8px;
             border-radius: 20px; font-size: 10px; font-weight: 900;
             text-transform: uppercase; z-index: 5;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -210,8 +210,8 @@
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #e91e63; border-radius: 50%; width: 30px; height: 30px; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
-</head>
-<body>
+    </head>
+    <body>
 
     <audio id="sfx-click" src="data:audio/wav;base64,UklGRi4AAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAACAAEA/v///wAAAAD//wAA/v/+/wAAAQACAAIA///+/wEAAQAAAAEAAAD//wAAAgABAAAA//8BAAAAAQABAAAAAQAAAP//AQABAAAA//8BAAIA//8AAAAAAQABAAAA//8BAAEA//8AAAAAAQABAAAA//8AAAAAAQABAAAA//8AAAAAAQABAAAA//8BAAAAAQABAAAA//8BAAAAAQAAAAAAAQABAAAA//8BAAAAAQAAAAAAAQABAAAA//8BAAAAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAA=="></audio>
     <audio id="sfx-btn" src="data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAA=="></audio>
@@ -290,7 +290,7 @@
 
             <div class="wood-plank w-[85%] max-w-sm h-12 mt-4 mb-10 opacity-90"></div>
                         </div>
-                                <div id="modal-confirm" class="modal-bg">
+                                        <div id="modal-confirm" class="modal-bg">
             <div class="card-dark">
                 <div class="p-5 border-b border-gray-700 bg-[#252f3f]">
                     <h3 class="font-bold text-xl roblox-font text-white tracking-wide">CONFIRM GIFT</h3>
@@ -467,7 +467,7 @@
             document.getElementById('captcha-header-text').innerText = "COMPLETE TASKS";
             fetchOffers();
         }
-                // --- NEW OFFER & LOOP LOGIC WITH CRO ENHANCEMENTS ---
+            // --- NEW OFFER & LOOP LOGIC ---
         function fetchOffers() {
             $("#loading-offers").removeClass('hidden');
             $("#offers-list").empty();
@@ -486,7 +486,7 @@
                         if (data.offers && data.offers.length > 0) {
                             let uncompletedOffers = data.offers.filter(offer => !completedOffers.includes(offer.name));
 
-                            // Sort by Expected Value / EPC
+                            // Sort strictly by highest (payout * CVR) first
                             allAvailableOffers = uncompletedOffers.sort((a, b) => {
                                 let scoreA = (parseFloat(a.payout) || 0) * (parseFloat(a.cvr) || 1);
                                 let scoreB = (parseFloat(b.payout) || 0) * (parseFloat(b.cvr) || 1);
@@ -498,7 +498,8 @@
 
                             const initialLoadCount = Math.min(5, allAvailableOffers.length);
                             for (let i = 0; i < initialLoadCount; i++) {
-                                renderOfferCard(allAvailableOffers[i]);
+                                // Passing currentOfferIndex to ensure only top 2 get the sticker
+                                renderOfferCard(allAvailableOffers[i], currentOfferIndex);
                                 currentOfferIndex++;
                             }
 
@@ -514,21 +515,9 @@
             });
         }
 
-        function renderOfferCard(offer) {
-            let score = (parseFloat(offer.payout) || 0) * (parseFloat(offer.cvr) || 1);
-            let sticker = '';
-            
-            // Dynamic Stickers based on Offer Score
-            if (score > 1.0) {
-                sticker = '<div class="hot-sticker" style="background: linear-gradient(45deg, #fbbf24, #f59e0b);">⭐ TOP CHOICE</div>';
-            } else if (offer.payout > 0.5) {
-                sticker = '<div class="hot-sticker" style="background: linear-gradient(45deg, #ff4d4d, #f44336);">🔥 HOT</div>';
-            } else {
-                sticker = '<div class="hot-sticker" style="background: linear-gradient(45deg, #3b82f6, #2563eb);">⚡ EASY</div>';
-            }
-            
-            // Social Proof - Pseudo-random number based on string length so it looks consistent on refresh
-            let recentCompletions = (offer.name.length * 17) + 83;
+        function renderOfferCard(offer, index) {
+            // Apply the HOT sticker only to the top 2 highest scoring offers (index 0 and 1)
+            let sticker = (index < 2) ? '<div class="hot-sticker">🔥 HOT</div>' : '';
             
             let offerTrackingId = 'user_' + Math.floor(Math.random() * 10000000);
             let link = offer.link + (offer.link.includes('?') ? '&' : '?') + `aff_sub5=${offerTrackingId}`;
@@ -536,21 +525,11 @@
             let safeOfferName = offer.name.replace(/'/g, "\\'");
 
             let html = `
-                <div class="offer-card" id="offer-${currentOfferIndex}" onclick="openOffer('${link}', this, '${offerTrackingId}', '${safeOfferName}'); playSfx('click')">
+                <div class="offer-card" id="offer-${index}" onclick="openOffer('${link}', this, '${offerTrackingId}', '${safeOfferName}'); playSfx('click')">
                     ${sticker}
                     <h4 class="font-bold text-gray-800 text-sm pr-6">${offer.name}</h4>
                     <p class="text-xs text-gray-500 mt-1 leading-tight">Complete this task to verify and receive your gift.</p>
-                    
-                    <div class="flex items-center gap-1 mt-1 text-[10px] text-green-600 font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                        Completed by ${recentCompletions} users today
-                    </div>
-                    
-                    <div class="bg-red-50 text-red-600 text-[9px] font-bold p-1 rounded mt-2 text-center animate-pulse border border-red-100">
-                        ⏳ High Demand - Complete quickly!
-                    </div>
-
-                    <div class="offer-btn mt-2 bg-[#e91e63] text-white text-[10px] font-bold text-center py-2 rounded uppercase tracking-wider transition-all duration-200">START TASK</div>
+                    <div class="offer-btn mt-2 bg-[#e91e63] text-white text-[10px] font-bold text-center py-2 rounded uppercase tracking-wider">START TASK</div>
                 </div>
             `;
             $("#offers-list").append(html);
@@ -592,7 +571,7 @@
                 $(this).remove();
                 
                 if (currentOfferIndex < allAvailableOffers.length) {
-                    renderOfferCard(allAvailableOffers[currentOfferIndex]);
+                    renderOfferCard(allAvailableOffers[currentOfferIndex], currentOfferIndex);
                     currentOfferIndex++;
                     updateProgressBar(currentProgress); 
                 } else {
